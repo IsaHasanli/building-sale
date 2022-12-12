@@ -1,0 +1,282 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% block header %}
+    {% include 'page-header.html' with page="BLOG" page_detail="Blog Page" image="img/image.jpg" %}
+{% endblock header %}
+{% block body %}
+  <section id="aa-blog">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="aa-blog-area">
+            <div class="row">
+              <div class="col-md-8">
+                <div class="aa-blog-content">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <article class="aa-blog-single aa-blog-details">
+                        <figure class="aa-blog-img">
+                          <a href="#"><img alt="img" src={{blog.image.url}}></a>
+                          <span class="aa-date-tag">{{blog.created_time | date:'d M, y'}}</span>
+                        </figure>
+                        <div class="aa-blog-single-content">
+                          <h2>{{blog.title}}</h2>
+                          <div class="aa-blog-single-bottom">
+                            <a class="aa-blog-author" href="#"><i class="fa fa-user"></i>{{blog.author | capfirst}}</a>
+                            <a class="aa-blog-comments" href="#"><i class="fa fa-comment-o"></i>{{comments.count}}</a>
+                          </div>
+                          <div>
+                            {{blog.description}}
+                          </div>
+                          <blockquote>
+                            {{blog.description2}}
+                          </blockquote>
+                        </div>                   
+                      </article>
+                    </div>
+                    <!-- Post tags -->
+                    <div class="col-md-12">
+                      <div class="aa-blog-post-tag">
+                        {% if blog_tages %}
+                        <ul>
+                          <li>TAGES:</li>
+                          {% for tag in blog_tages %}
+                          <li><a href="{% url 'blog' %}?tag={{tag.id}}">{{tag}}</a></li>  
+                          {% endfor %}                        
+                        </ul>
+                        {% endif %}
+                      </div>
+                    </div>
+                    <!-- Social Share -->
+                    <div class="col-md-12">
+                      <div class="aa-properties-social">
+                       <ul>
+                         <li>Share</li>
+                         <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                         <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                         <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                         <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
+                       </ul>
+                     </div>
+                    </div>
+                    <!-- post navigation -->
+                    <div class="col-md-12">
+                      <div class="aa-blog-navigation">
+                        {% if blog.has_prev %}
+                        <div class="aa-blog-pagination-left">
+                          <a href={{blog.prev_url}} class="aa-prev">
+                            <span class="fa fa-angle-double-left">                            
+                            </span>
+                            PREV
+                          </a>
+                        </div>
+                        {% else %}
+                        <div class="aa-blog-pagination-left disabled">
+                          <a href={{blog.prev_url}} class="aa-prev btn active disabled">
+                            <span class="fa fa-angle-double-left">                            
+                            </span>
+                            PREV
+                          </a>
+                        </div>
+                        {% endif %}
+                        {% comment %} {% if blog %} {% endcomment %}
+                        {% if blog.has_next %}
+                        <div class="aa-blog-pagination-right">
+                          <a href={{blog.next_url}} class="aa-next">
+                            NEXT
+                            <span class="fa fa-angle-double-right">                            
+                            </span>
+                          </a>                          
+                        </div>
+                        {% else %}
+                        <div class="aa-blog-pagination-right">
+                         <a href={{blog.next_url}} class="aa-next btn active disabled" role="button">
+                            <span class="fa fa-angle-double-right">  
+                              NEXT                          
+                            </span>
+                          </a>   
+                        </div>  
+                        {% endif %}
+                        {% comment %} {% endif %} {% endcomment %}
+                      </div>
+                    </div>
+                    <!-- Related blog post -->
+                    {% if related_posts %}
+                    <div class="col-md-12">
+                      <div class="aa-blog-related-post">
+                        <div class="aa-title">
+                          <h2>Related Post</h2>
+                          <span></span>
+                        </div>
+                        <div class="aa-blog-related-post-area">
+                          <div class="row">
+                            {% include 'utils/blog-item.html' with posts=related_posts %}
+                          </div>
+                        </div>
+                      </div>
+                    </div>  
+                    {% endif %}
+                    <!-- comment threats -->
+                    <div class="col-md-12">
+                      <div class="aa-comments-area">
+                        <h3>{{comments.count}} Comments</h3>
+                        <div class="comments">
+                          <ul class="commentlist">
+                            {% for comment in comments %}
+                            <li>
+                              <div class="media">
+                                <div class="media-left">    
+                                    <img alt="img" src={% static "img/testimonial-1.png" %} class="media-object news-img">      
+                                </div>
+                                <div class="media-body">
+                                 <h4 class="author-name">{{comment.name}}</h4>
+                                 <span class="comments-date">{{comment.created_time | date:'d M, Y'}}</span>
+                                 <p>{{comment.content}}</p>
+                                 <a class="reply-btn" href="#">Reply</a>
+                                </div>
+                              </div>
+                            </li>
+                            {% endfor %}
+                            {% comment %} <li>
+                              <div class="media">
+                                <div class="media-left">    
+                                    <img alt="img" src={% static "img/testimonial-1.png" %} class="media-object news-img">      
+                                </div>
+                                <div class="media-body">
+                                 <h4 class="author-name">Adam Barney</h4>
+                                 <span class="comments-date"> 20th April, 2016</span>
+                                 <p>Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English</p>
+                                 <a class="reply-btn" href="#">Reply</a>
+                                </div>
+                              </div>
+                            </li>
+                            <li>
+                              <div class="media">
+                                <div class="media-left">    
+                                    <img alt="img" src="img/testimonial-2.png" class="media-object news-img">      
+                                </div>
+                                <div class="media-body">
+                                 <h4 class="author-name">John Smith</h4>
+                                 <span class="comments-date"> 20th April, 2016</span>
+                                 <p>Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English</p>
+                                 <a class="reply-btn" href="#">Reply</a>
+                                </div>
+                              </div>
+                            </li>
+                            <ul class="children">
+                              <li class="author-comments">
+                                <div class="media">
+                                  <div class="media-left">    
+                                      <img alt="img" src="img/testimonial-3.png" class="media-object news-img">      
+                                  </div>
+                                  <div class="media-body">
+                                   <h4 class="author-name">Admin</h4>
+                                   <span class="comments-date"> 20th April, 2016</span>
+                                   <span class="author-tag">Author</span>
+                                   <p>Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English</p>
+                                   <a class="reply-btn" href="#">Reply</a>
+                                  </div>
+                                </div>
+                              </li>
+                              <ul class="children">
+                                <li>
+                                  <div class="media">
+                                    <div class="media-left">    
+                                        <img alt="img" src="img/testimonial-1.png" class="media-object news-img">      
+                                    </div>
+                                    <div class="media-body">
+                                     <h4 class="author-name">Adam Barney</h4>
+                                     <span class="comments-date"> 20th April, 2016</span>
+                                     <p>Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English</p>
+                                     <a class="reply-btn" href="#">Reply</a>
+                                    </div>
+                                  </div>
+                                </li>
+                              </ul>
+                            </ul>
+                            <li>
+                              <div class="media">
+                                <div class="media-left">    
+                                    <img alt="img" src="img/testimonial-2.png" class="media-object news-img">      
+                                </div>
+                                <div class="media-body">
+                                 <h4 class="author-name">Jhon Smith</h4>
+                                 <span class="comments-date"> 20th April, 2016</span>
+                                 <p>Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English</p>
+                                 <a class="reply-btn" href="#">Reply</a>
+                                </div>
+                              </div>
+                            {% comment %} </li> {% endcomment %}
+                          </ul>
+                          <!-- comments pagination -->
+                          <nav>
+                            <ul class="pagination comments-pagination">
+                              <li>
+                                <a aria-label="Previous" href="#">
+                                  <span aria-hidden="true">«</span>
+                                </a>
+                              </li>
+                              <li><a href="#">1</a></li>
+                              <li><a href="#">2</a></li>
+                              <li><a href="#">3</a></li>
+                              <li><a href="#">4</a></li>
+                              <li><a href="#">5</a></li>
+                              <li>
+                                <a aria-label="Next" href="#">
+                                  <span aria-hidden="true">»</span>
+                                </a>
+                              </li>
+                            </ul>
+                          </nav>
+                        </div>
+      
+                      </div>
+                    </div>   
+                    <!-- Respond box -->
+                    <div class="col-md-12">
+                      <div id="respond">
+                        <h3 class="reply-title">Leave a Comment</h3>
+                        <form id="commentform">
+                          <p class="comment-notes">
+                            Your email address will not be published. Required fields are marked <span class="required">*</span>
+                          </p>
+                          <p class="comment-form-author">
+                            <label for="author">Name <span class="required">*</span></label>
+                            <input type="text" required="required" size="30" value="" name="author">
+                          </p>
+                          <p class="comment-form-email">
+                            <label for="email">Email <span class="required">*</span></label>
+                            <input type="email" required="required" aria-required="true" value="" name="email">
+                          </p>
+                          <p class="comment-form-url">
+                            <label for="url">Website</label>
+                            <input type="url" value="" name="url">
+                          </p>
+                          <p class="comment-form-comment">
+                            <label for="comment">Comment</label>
+                            <textarea required="required" aria-required="true" rows="8" cols="45" name="comment"></textarea>
+                          </p>
+                          <p class="form-allowed-tags">
+                            You may use these <abbr title="HyperText Markup Language">HTML</abbr> tags and attributes:  <code>&lt;a href="" title=""&gt; &lt;abbr title=""&gt; &lt;acronym title=""&gt; &lt;b&gt; &lt;blockquote cite=""&gt; &lt;cite&gt; &lt;code&gt; &lt;del datetime=""&gt; &lt;em&gt; &lt;i&gt; &lt;q cite=""&gt; &lt;s&gt; &lt;strike&gt; &lt;strong&gt; </code>
+                          </p>
+                          <p class="form-submit">
+                            <input type="submit" value="Post Comment" class="aa-browse-btn" name="submit">
+                          </p>        
+                        </form>
+                      </div>
+                    </div>
+                  </div>                                   
+                </div>
+              </div>
+              <!-- Start blog sidebar -->
+              <div class="col-md-4">
+                {% comment %} Filter {% endcomment %}
+                {% include 'utils/blog-filter.html' %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock body %}

@@ -1,9 +1,79 @@
 {% extends 'layout.html' %}
-
+{% load static %}
 {% block header %}
     {% include 'page-header.html' with page="BLOG" page_detail="Blog Page" image="img/image.jpg" %}
 {% endblock header %}
 
 {% block body %}
-salam
+<section id="aa-blog">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="aa-blog-area">
+            <div class="row">
+              <div class="col-md-8">
+                <div class="aa-blog-content">
+                  <div class="row">
+                    {% comment %} All blogs {% endcomment %}
+                   {% include 'utils/blog-item.html' with posts=blog_obg %}
+                  </div>
+
+                  <div class="row">
+                    {% comment %} Pagination {% endcomment %}
+                    
+                    <div class="col-md-12">
+                    
+                      <div class="aa-properties-content-bottom">
+                        {% if blog_obg.paginator.num_pages > 1 %}
+                        <nav>
+                          <ul class="pagination">
+                            {% if blog_obg.has_previous %}
+                             <li>
+                                <a aria-label="Previous" href="?page={{blog_obg.previous_page_number}}">
+                                  <span aria-hidden="true">«</span>
+                                </a>
+                            </li>
+                            {% else %}
+                            <li class="disabled"> 
+                                <span aria-hidden="true">«</span>
+                            </li>
+                            {% endif %}
+                            {% for page_number in blog_obg.paginator.page_range %}
+                                {% if page_number == blog_obg.number %}
+                                <li class="active"><a href="?page={{page_number}}">{{page_number}}</a></li>
+                                {% else %}
+                                <li><a href="?page={{page_number}}">{{page_number}}</a></li>
+                                {% endif %}
+                            {% endfor %}
+                            {% if blog_obg.has_next%}
+                            <li>
+                                <a aria-label="Next" href="?page={{blog_obg.next_page_number}}">
+                                  <span aria-hidden="true">»</span>
+                                </a>
+                            </li>
+                            {% else %}
+                            <li class="disabled"> 
+                                <span aria-hidden="true">»</span>
+                            </li>
+                            {% endif %}
+                          </ul>
+                        </nav>
+                        {% endif %}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+              </div>
+              <!-- Start blog sidebar -->
+              <div class="col-md-4">
+                {% comment %} filtering {% endcomment %}
+                {% include 'utils/blog-filter.html' %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 {% endblock body %}
