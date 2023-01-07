@@ -55,16 +55,22 @@ class Blog(models.Model):
         return True
 
 class Comment(models.Model):
-    name = models.CharField(max_length = 100)
-    email = models.EmailField()
-    website = models.CharField(max_length = 200)
+    name = models.CharField(max_length = 100, null = True, blank = True)
+    email = models.EmailField(null = True, blank = True)
+    author = models.ForeignKey(User, on_delete = models.SET_NULL, null = True, blank = True, related_name = 'comments')
+    website = models.CharField(max_length = 200, null = True, blank = True)
     content = models.TextField()
     blog = models.ForeignKey(Blog, on_delete = models.CASCADE, related_name = "comments")
-    parent = models.ForeignKey('self', on_delete=models.CASCADE,null = True,  blank = True,  related_name = 'comments' )
+    parent = models.ForeignKey('self', on_delete=models.CASCADE, null = True, blank = True,  related_name = 'comments' )
     created_time = models.DateField(auto_now_add = True)
 
     def __str__(self) -> str:
         return f'{self.blog} / {self.name} / {self.content}'
+
+    def get_absolute_url(self):
+        return reverse("comment_detail", kwargs={"comment_id": self.pk})
+
+
 
 class Banner(models.Model):
     title = models.CharField(max_length=100)

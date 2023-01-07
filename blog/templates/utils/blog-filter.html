@@ -29,18 +29,18 @@
         <li>News <span>375</span></li>
         <li>Reviews <span>458</span></li> {% endcomment %}
         {% for category in categories %}
-        {% if category.total_categories > 0%}
-          <li>{{category.title}}  {{category.total_category_blogs}}
-              <ul>
-              {% for alt_category in alt_categories %}
-                  {% if alt_category.parent == category %}
-                      <li><a href="{% url 'blog' %}?category={{alt_category.id}}">{{alt_category.title}}</a> <span>{{alt_category.total_blogs}}</span></li>
-                  {% endif %}
-              {% endfor %}
-              </ul>
-          </li>
+          {% if category.total_categories > 0 %}
+            <li>{{category.title}} <span>{{category.total_blogs_for_alt_category}}</span>
+                <ul>
+                {% for alt_category in alt_categories %}
+                    {% if alt_category.parent == category %}
+                        <li><a href="{% url 'blog' %}?category={{alt_category.id}}">{{alt_category.title}}</a> <span>{{alt_category.total_blogs}}</span></li>
+                    {% endif %}
+                {% endfor %}
+                </ul>
+            </li>
           {% else %}
-          <li><a href="{% url 'blog' %}?category={{category.id}}">{{category.title}}</a><span>{{category.total_blogs}}</span></li>
+            <li><a href="{% url 'blog' %}?category={{category.id}}">{{category.title}}</a><span>{{category.total_blogs}}</span></li>
           {% endif %}
         {% endfor %}
       </ul>

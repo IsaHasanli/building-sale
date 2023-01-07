@@ -1,0 +1,57 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% block header %}
+    {% include 'page-header.html' with page="Gallery" page_detail="GALLERY" image="img/image.jpg" %}
+{% endblock header %}
+{% block body %}
+
+
+  <section id="aa-gallery">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="aa-gallery-area">
+            <div class="aa-title">
+              <h2>Gallery View</h2>
+              <span></span>
+               <p>{{gallery_view.content}}</p>
+            </div>
+            <!-- Start gallery -->
+            <div class="aa-gallery-content">
+              <div class="aa-gallery-top">
+                <!-- Start gallery menu -->
+                <ul>
+                  <li data-filter="all" class="filter active">All</li>
+                  <li data-filter=".apartment" class="filter">Apartment</li>
+                  <li data-filter=".livingroom" class="filter">Living Room</li>
+                  <li data-filter=".bedroom" class="filter">Bedroom</li>
+                  <li data-filter=".kitchen" class="filter">Kitchen</li>
+                  <li data-filter=".garage" class="filter">Garage</li>
+                </ul>
+              </div>
+              <!-- Start gallery image -->
+              <div id="mixit-container" class="aa-gallery-body">
+                <!-- start single gallery image -->
+                {% for image in images %}
+                <div class="aa-single-gallery mix {{image.category}}">                  
+                  <div class="aa-single-gallery-item">
+                    <div class="aa-single-gallery-img">
+                      <a href="#"><img src={{image.image.url}} alt="img"></a>
+                    </div>
+                    <div class="aa-single-gallery-info">
+                      <a class="fancybox" data-fancybox-group="gallery" href="{{image.image.url}}"><span class="fa fa-eye">
+                      <a class="aa-link" href={{image.property.get_absolute_url}}><span class="fa fa-link"></span></a>
+                    </div>                  
+                  </div>
+                </div>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+{% endblock body %}

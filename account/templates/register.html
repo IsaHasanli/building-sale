@@ -1,0 +1,41 @@
+{% extends 'layout.html' %}
+{% block main_header %}
+{% endblock main_header %}
+{% block body %}
+<section id="aa-signin">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="aa-signin-area">
+            <div class="aa-signin-form">
+              <div class="aa-signin-form-title">
+                <a class="aa-property-home" href="index.html">Property Home</a>
+                <h4>Create your account and Stay with us</h4>
+              </div>
+              <form class="contactform" method="post"> 
+                {% csrf_token %}                                                
+               {% for field in form %}
+                <div class="aa-single-field">
+                <label for="{{field.id_for_label}}">{{field.label}} <span class="required">*</span></label>
+                {{field}}
+                {% for error in field.errors %}
+                    <div class="text-danger">
+                        * {{error}}
+                    </div>
+                {% endfor %}
+              </div> 
+                {% endfor %}  
+
+                <div class="aa-single-submit">
+                  <input type="submit" value="Create Account" name="submit">                    
+                </div> 
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section> 
+{% endblock body %}
+{% block footer %}
+{% endblock footer %}
