@@ -8,10 +8,8 @@
     <title>Home Property | Blog Archive</title>
 
     <!-- Favicon -->
-    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href={% static "img/favicon.ico" %} type="image/x-icon">
     
-   
-    <!-- Font awesome -->
     <link href={% static "css/font-awesome.css" %} rel="stylesheet">
     <!-- Bootstrap -->
     <link href={% static "css/bootstrap.css" %} rel="stylesheet">   
@@ -31,7 +29,6 @@
     <!-- Google Font -->
     <link href='https://fonts.googleapis.com/css?family=Vollkorn' rel='stylesheet' type='text/css'>    
     <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
-    
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -52,13 +49,14 @@
   <!-- END SCROLL TOP BUTTON -->
  
   <!-- Start header section -->
+  {% block main_header %}
   {% include 'header.html' %}
   <!-- End header section -->
 
   <!-- Start menu section -->
   {% include 'navbar.html' %}
   <!-- End menu section -->
-
+  {% endblock main_header %}
   <!-- Start Proerty header  -->
   {% block header %}
   
@@ -71,11 +69,16 @@
 
 
   <!-- Footer -->
+  {% block footer %}
     {% include 'footer.html' %}
+  {% endblock footer %}
   <!-- / Footer -->
 
-  <!-- jQuery library -->
+  {% block scripts %}{% endblock scripts %}
+    <!-- jQuery library -->
   <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script> -->
+  
+ <!-- jQuery library -->
   <script src={% static "js/jquery.min.js" %}></script>   
   <!-- Include all compiled plugins (below), or include individual files as needed -->
   <script src={% static "js/bootstrap.js" %}></script>   
@@ -88,7 +91,8 @@
   <!-- Add fancyBox -->        
   <script type="text/javascript" src={% static "js/jquery.fancybox.pack.js" %}></script>
   <!-- Custom js -->
-  <script src={% static "js/custom.js" %}></script> 
+  <script src={% static 'js/custom.js' %}></script> 
+  <script src={% static "js/navbar.js" %}></script> 
 
   </body>
 </html>

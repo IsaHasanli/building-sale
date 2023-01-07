@@ -1,3 +1,7 @@
 from django.db import models
 
-# Create your models here.
+class GalleryView(models.Model):
+    content = models.TextField()
+    
+    def __str__(self) -> str:
+        return "Gallery View"

@@ -1,0 +1,27 @@
+<article class="aa-properties-item">
+    {{property.property_images.first.url}}
+    <a class="aa-properties-item-img" href={{property.get_absolute_url}}>
+      <img alt="img" style="height: 220px;" src={{property.property_images.first.image.url}}>
+    </a>
+    <div class="aa-tag {{property.property_type}}">
+        {{property.get_property_type_display}}
+    </div>
+    <div class="aa-properties-item-content">
+      <div class="aa-properties-info">
+        <span>{{property.rooms}} Rooms</span>
+        <span>{{property.bedroom_count}} Beds</span>
+        <span>{{property.bath_count}} Baths</span>
+        <span>{{property.area}} SQ FT</span>
+      </div>
+      <div class="aa-properties-about">
+        <h3><a href={{property.get_absolute_url}}>{{property.title}}</a></h3>
+        <p>{{property.description | slice:":45"}}</p>                      
+      </div>
+      <div class="aa-properties-detial">
+        <span class="aa-price">
+          ${{property.price}}
+        </span>
+        <a class="aa-secondary-btn" href={{property.get_absolute_url}}>View Details</a>
+      </div>
+    </div>
+  </article>

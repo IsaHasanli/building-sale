@@ -1,0 +1,77 @@
+<div class="col-md-4">
+    <aside class="aa-properties-sidebar">
+      <!-- Start Single properties sidebar -->
+      <div class="aa-properties-single-sidebar">
+        <h3>Properties Search</h3>
+        <form action={% url 'properties' %} method="get">
+          <div class="aa-single-advance-search">
+            <input name="location" type="text" placeholder="Type Your Location">
+          </div>
+          <div class="aa-single-advance-search">
+            <select name="category"  id="" >
+              <option disabled selected="" value="0">Category</option>
+              <option value="flat">Flat</option>
+              <option value="land">Land</option>
+              <option value="plot">Plot</option>
+              <option value="commercial">Commercial</option>
+            </select>
+          </div>
+          <div class="aa-single-advance-search">
+            <select id="" name="property_type">
+              <option disabled selected="" value="0">Property Type</option>
+              <option value="for-sale">For Sale</option>
+              <option value="for-rent">For Rent</option>
+              <option value="sold-out">Sold Out</option>
+            </select>
+          </div>
+          <div class="aa-single-advance-search">
+            <select name="building_type">
+              <option disabled selected="" value="0">Building Type</option>
+              <option value="old-building">Old Building</option>
+              <option value="new-building">New Building</option>
+            </select>
+            
+          </div>
+          <div class="aa-single-filter-search">
+            <span>AREA (SQ)</span>
+            <div class="d-flex">
+            <input style="width: 40%;" name="area_min" type="number" placeholder="min"> -             
+              <input style="width: 40%;" name="area_max" type="number" placeholder="max"> 
+            </div>
+          </div>
+          <div class="aa-single-filter-search">
+            <span>PRICE ($)</span>
+            <div class="d-flex">
+              <input style="width: 40%;" name="price_min" type="number" placeholder="min"> -             
+              <input style="width: 40%;" name="price_max" type="number" placeholder="max">
+            </div>
+          </div>
+          <div class="aa-single-advance-search">
+            <input type="submit" value="Search" class="aa-search-btn">
+          </div>
+        </form>
+      </div> 
+      <!-- Start Single properties sidebar -->
+      <div class="aa-properties-single-sidebar">
+        <h3>Populer Properties</h3>
+        {% for property in popular_properties %}
+        <div class="media">
+          <div class="media-left">
+            <a href={{property.get_absolute_url}}>
+              <img class="media-object" src="{{property.property_images.first.image.url}}" alt="img">
+            </a>
+          </div>
+          <div class="media-body">
+            <h4 class="media-heading"><a href={{property.get_absolute_url}}>{{property.title}}</a></h4>
+            <p>{{property.description}}</p>                
+            <span>${{property.price}}</span>
+          </div>              
+        </div>
+        {% endfor %}             
+        </div>
+      </div>
+    </aside>
+  </div>
+</div>
+</div>
+</section>

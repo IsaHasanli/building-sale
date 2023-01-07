@@ -1,0 +1,87 @@
+<aside class="aa-blog-sidebar">
+    <!-- Start single sidebar -->
+    <div class="aa-blog-sidebar-single">
+      <form action={% url 'blog' %} method="get">
+        <div class="aa-blog-search">
+          <input class="aa-search-text" type="text" name="search" placeholder="Search...">
+          <button class="aa-search-submit" type="submit">
+            <i class="fa fa-search"></i>
+          </button>
+        </div>
+      </form>
+    </div>
+    <!-- Start single sidebar -->
+    <div class="aa-blog-sidebar-single">
+      <h3>Categories</h3>
+      <ul class="aa-blog-catg">
+        {% comment %} <li>Properties <span>15000</span></li>
+        <li>Apartment <span>5000</span></li>
+        <li>Office  <span>3000</span></li>
+        <li>Residential <span>4500</span></li>
+        <li>Commercial <span>1000</span>
+            <ul>
+              <li>category 2.1 <span>50</span></li>
+              <li>category 2.2 <span>100</span></li>
+            </ul>
+        </li>
+        <li>Villa <span>800</span></li>
+        <li>Bungalow  <span>200</span></li>
+        <li>News <span>375</span></li>
+        <li>Reviews <span>458</span></li> {% endcomment %}
+        {% for category in categories %}
+          {% if category.total_categories > 0 %}
+            <li>{{category.title}} <span>{{category.total_blogs_for_alt_category}}</span>
+                <ul>
+                {% for alt_category in alt_categories %}
+                    {% if alt_category.parent == category %}
+                        <li><a href="{% url 'blog' %}?category={{alt_category.id}}">{{alt_category.title}}</a> <span>{{alt_category.total_blogs}}</span></li>
+                    {% endif %}
+                {% endfor %}
+                </ul>
+            </li>
+          {% else %}
+            <li><a href="{% url 'blog' %}?category={{category.id}}">{{category.title}}</a><span>{{category.total_blogs}}</span></li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+    </div>
+    <!-- Start single sidebar -->
+    <div class="aa-blog-sidebar-single">
+      <h3>Tags</h3>
+      <div class="tag-cloud">
+        
+          {% for tag in tages %}
+          <a href="{% url 'blog' %}?tag={{tag.id}}">{{tag}}</a>
+          {% endfor %}
+      </div>                    
+    </div>
+    <!-- Start single sidebar -->
+    <div class="aa-blog-sidebar-single">
+      <h3>Recent Post</h3>
+      {% for post in recent_posts %}
+      <div class="aa-blog-recent-post">
+        <div class="media">
+          <div class="media-left">
+            <a href={% url 'blog_detail' post.id%}>
+
+              <img alt="img" src={{post.image.url}} class="media-object">
+            </a>
+          </div>
+          <div class="media-body">
+            <h4 class="media-heading"><a href={% url 'blog_detail' post.id%}>{{post.title}}</a></h4>
+            <p>{{post.description}}</p>                
+            <span>{{post.created_time | date:'d M, y'}}</span>
+          </div>              
+        </div> 
+      </div>  
+      {% endfor %}                  
+    </div>
+    <!-- Start single sidebar -->
+    <div class="aa-blog-sidebar-single">                    
+      <div class="aa-banner-ads">
+        <a href="#">
+          <img src={{banner.image.url}} alt="banner img">
+        </a>
+      </div>                    
+    </div>
+  </aside>

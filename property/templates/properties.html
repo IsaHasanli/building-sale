@@ -1,0 +1,95 @@
+{% extends 'layout.html' %}
+{% load urlhelper %}
+{% block header %}
+  {% include 'page-header.html' with page="Properties" page_detail="PROPERTIES" image="img/image.jpg"%}
+{% endblock header %}
+  <!-- Start Properties  -->
+  {% block body %}
+  <section id="aa-properties">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8">
+          <div class="aa-properties-content">
+            <!-- start properties content head -->
+            <div class="aa-properties-content-head">              
+              <div class="aa-properties-content-head-left">
+                <div class="dropdown aa-sort-form">
+                  Sort: 
+                  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">{{sort}}
+                  <span class="caret"></span></button>
+                  <ul class="dropdown-menu">
+                    <li><a href="{%edit_querystring request sort='-title' %}">Title</a></li>
+                    <li><a href="{%edit_querystring request sort='-price' %}">Price</a></li>
+                    <li><a href="{%edit_querystring request sort='-date' %}">Date</a></li>
+                  </ul>
+                </div>
+                <div class="dropdown aa-sort-form" style="margin-left: 20px !important">
+                  Show: 
+                  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">{{item_count}}
+                  <span class="caret"></span></button>
+                  <ul class="dropdown-menu">
+                    <li><a href="{%edit_querystring request item_count=6 %}">6</a></li>
+                    <li><a href="{%edit_querystring request item_count=12 %}">12</a></li>
+                    <li><a href="{%edit_querystring request item_count=24 %}">24</a></li>
+                  </ul>
+                </div>
+              </div>
+              <div class="aa-properties-content-head-right">
+                <a id="aa-grid-properties" href="#"><span class="fa fa-th"></span></a>
+                <a id="aa-list-properties" href="#"><span class="fa fa-list"></span></a>
+              </div>            
+            </div>
+            <!-- Start properties content body -->
+            <div class="aa-properties-content-body">
+              <ul class="aa-properties-nav">
+                {% for property in properties %}
+                <li>
+                  {% include 'utils/property_item.html' with property=property  %}
+                </li>
+                {% endfor %}
+              </ul>
+            </div>
+            <!-- Start properties content bottom -->
+            <div class="aa-properties-content-bottom">
+                {% if properties.paginator.num_pages > 1 %}
+                <nav>
+                  <ul class="pagination">
+                    {% if properties.has_previous %}
+                     <li>
+                        <a aria-label="Previous" href="{% edit_querystring  request page=properties.previous_page_number %}">
+                          <span aria-hidden="true">«</span>
+                        </a>
+                    </li>
+                    {% else %}
+                    <li class="disabled"> 
+                        <span aria-hidden="true">«</span>
+                    </li>
+                    {% endif %}
+                    {% for page_number in properties.paginator.page_range %}
+                        {% if page_number == properties.number %}
+                        <li class="active"><a href="{% edit_querystring  request page=page_number %}">{{page_number}}</a></li>
+                        {% else %}
+                        <li><a href="{% edit_querystring  request page=page_number %}">{{page_number}}</a></li>
+                        {% endif %}
+                    {% endfor %}
+                    {% if properties.has_next%}
+                    <li>
+                        <a aria-label="Next" href="{% edit_querystring  request page=properties.next_page_number %}">
+                          <span aria-hidden="true">»</span>
+                        </a>
+                    </li>
+                    {% else %}
+                    <li class="disabled"> 
+                        <span aria-hidden="true">»</span>
+                    </li>
+                    {% endif %}
+                  </ul>
+                </nav>
+                {% endif %}
+              </div>
+          </div>
+        </div>
+        <!-- Start properties sidebar -->
+        {% include 'utils/sidebar.html' %}
+         <!-- / Properties  -->
+  {% endblock body %}

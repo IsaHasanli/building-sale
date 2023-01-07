@@ -1,3 +1,6 @@
 from django.contrib import admin
+from leaflet.admin import LeafletGeoAdmin
+from .models import Contact, Message
 
-# Register your models here.
+admin.site.register(Contact, LeafletGeoAdmin)
+admin.site.register(Message)

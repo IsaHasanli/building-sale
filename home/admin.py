@@ -1,3 +1,8 @@
 from django.contrib import admin
+from .models import About, Agent, AgentPosition, AboutRequirement, Brand
 
-# Register your models here.
+admin.site.register(About)
+admin.site.register(Agent)
+admin.site.register(AgentPosition)
+admin.site.register(AboutRequirement)
+admin.site.register(Brand)
